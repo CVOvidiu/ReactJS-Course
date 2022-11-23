@@ -1,19 +1,23 @@
 import './ExpenseItem.css';
 
-function ExpenseItem() {
-    const expenseDate = 'March 28th 2021';
-    const expenseTitle = 'Car Insurance';
-    const expenseAmount = 294.67;
-
+function ExpenseItem(props) { // Props are key-value pairs
+    const month = props.date.toLocaleString('en-US', {month: 'long'});
+    const day = props.date.toLocaleString('en-US', {day: '2-digit'});
+    const year = props.date.getFullYear();
+    
     return (
         <div className='expense-item'>
-            <div>{expenseDate}</div>
+            <div>
+                <div>{month}</div>
+                <div>{day}</div>
+                <div>{year}</div>
+            </div>
             <div className='expense-item__description'>
-                <h2>{expenseTitle}</h2>
-                <div className='expense-item__price'>{expenseAmount}</div>
+                <h2>{props.title}</h2>
+                <div className='expense-item__price'>{props.amount}</div>
             </div>
         </div>
     );
-}
+};
 
 export default ExpenseItem;
