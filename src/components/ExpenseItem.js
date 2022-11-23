@@ -1,7 +1,7 @@
 import ExpenseDate from './ExpenseDate';
 import './ExpenseItem.css';
 
-function ExpenseItem(props) { // Props are key-value pairs
+function ExpenseItem(props) {
 
     return (
         <div className='expense-item'>
