@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 import './NewExpense.css';
 
-function NewExpense() {
+function NewExpense(props) {
     const [enteredTitle, setEnteredTitle] = useState('');
     const titleChangeHandler = (event) => {
         setEnteredTitle(event.target.value);
@@ -26,7 +26,7 @@ function NewExpense() {
             amount: enteredAmount,
             date: new Date(enteredDate)
         };
-        console.log(expenseData);
+        props.onSaveExpenseData(expenseData);
 
         // After submission, reset the input fields to empty
         setEnteredTitle('');

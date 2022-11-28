@@ -28,9 +28,17 @@ function App() {
     },
   ];
 
+  const saveExpenseDataHandler = (enteredExpenseData) => {
+    const expenseData = {
+      ...enteredExpenseData,
+      id: Math.random().toString()
+    };
+    console.log(expenseData);
+  };
+
   return (
     <div>
-      <NewExpense />
+      <NewExpense onSaveExpenseData={saveExpenseDataHandler}/>
       <Expenses expenses={expenses}/>
     </div>
   );
