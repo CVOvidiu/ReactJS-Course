@@ -11,18 +11,22 @@ function Expenses(props) {
 
     const filteredExpenses = props.expenses.filter(expense => expense.date.getFullYear().toString() === selectedOption);
 
+    let outputContent = <p style={{color: "white"}}>Nothing was found.</p>
+    if(filteredExpenses.length)
+        outputContent = filteredExpenses.map(expense =>
+            <ExpenseItem 
+            key={expense.id}
+            title={expense.title}
+            amount={expense.amount}
+            date={expense.date}
+            />
+        );
+
     return (
         <div>
             <Card className='expenses'>
                 <ExpensesFilter defaultSelect={selectedOption} onSelectOption={selectOptionHandler}/>
-                {filteredExpenses.map(expense =>
-                    <ExpenseItem 
-                    key={expense.id}
-                    title={expense.title}
-                    amount={expense.amount}
-                    date={expense.date}
-                    />
-                )}
+                {outputContent}
             </Card>
         </div>
     );
