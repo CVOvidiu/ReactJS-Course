@@ -5,15 +5,17 @@ import Card from '../UI/Card';
 import './Expenses.css';
 
 function Expenses(props) {
-    const [selectedOption, setSelectedOption] = useState('2022');
+    const [selectedOption, setSelectedOption] = useState('2021');
     
     const selectOptionHandler = (opt) => setSelectedOption(opt);
+
+    const filteredExpenses = props.expenses.filter(expense => expense.date.getFullYear().toString() === selectedOption);
 
     return (
         <div>
             <Card className='expenses'>
                 <ExpensesFilter defaultSelect={selectedOption} onSelectOption={selectOptionHandler}/>
-                {props.expenses.map(expense =>
+                {filteredExpenses.map(expense =>
                     <ExpenseItem 
                     key={expense.id}
                     title={expense.title}
