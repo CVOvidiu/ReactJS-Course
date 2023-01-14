@@ -37,31 +37,33 @@ const Login = (props) => {
     isValid: null,
   });
 
-  // // Implement debouncing
-  // useEffect(() => {
-  //   const id = setTimeout(() => {
-  //     setFormIsValid(
-  //       enteredEmail.includes("@") && enteredPassword.trim().length > 6
-  //     );
-  //   }, 500);
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: pwIsValid } = pwState;
 
-  //   return () => {
-  //     clearTimeout(id);
-  //   };
-  // }, [enteredEmail, enteredPassword]);
+  // Implement debouncing
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setFormIsValid(emailIsValid && pwIsValid);
+    }, 500);
+
+    return () => {
+      clearTimeout(id);
+    };
+  }, [emailIsValid, pwIsValid]);
 
   const emailChangeHandler = (event) => {
     dispatchEmail({ type: "EMAIL_INPUT", val: event.target.value });
 
-    setFormIsValid(
-      event.target.value.includes("@") && pwState.value.trim().length > 6
-    );
+    // // This is not optimal because we depend on another state
+    // setFormIsValid(
+    //   event.target.value.includes("@") && pwState.value.trim().length > 6
+    // );
   };
 
   const passwordChangeHandler = (event) => {
     dispatchPw({ type: "PW_INPUT", val: event.target.value });
 
-    setFormIsValid(emailState.isValid && event.target.value.trim().length > 6);
+    // setFormIsValid(emailState.isValid && event.target.value.trim().length > 6);
   };
 
   const validateEmailHandler = () => {
