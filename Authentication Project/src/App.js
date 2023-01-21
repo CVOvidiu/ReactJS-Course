@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
@@ -6,7 +6,7 @@ import MainHeader from "./components/MainHeader/MainHeader";
 import AuthContext from "./store/auth-context";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // const loggedInInfo = localStorage.getItem("isLoggedIn");
   //
@@ -16,42 +16,39 @@ function App() {
   // }
 
   // This would only run once, when the App starts because the dependencies do not change because we do not have dependencies
-  useEffect(() => {
-    const loggedInInfo = localStorage.getItem("isLoggedIn");
+  // useEffect(() => {
+  //   const loggedInInfo = localStorage.getItem("isLoggedIn");
 
-    if (loggedInInfo === "true") {
-      setIsLoggedIn(true); // Will reexecute but will not go through useEffect anymore because the deps didn't change
-    }
-  }, []);
+  //   if (loggedInInfo === "true") {
+  //     setIsLoggedIn(true); // Will reexecute but will not go through useEffect anymore because the deps didn't change
+  //   }
+  // }, []);
 
-  const loginHandler = (email, password) => {
-    // We should of course check email and password
-    // But it's just a dummy/ demo anyways
+  // const loginHandler = (email, password) => {
+  //   // We should of course check email and password
+  //   // But it's just a dummy/ demo anyways
 
-    localStorage.setItem("isLoggedIn", "true");
+  //   localStorage.setItem("isLoggedIn", "true");
 
-    setIsLoggedIn(true);
-  };
+  //   setIsLoggedIn(true);
+  // };
 
-  const logoutHandler = () => {
-    localStorage.removeItem("isLoggedIn");
+  // const logoutHandler = () => {
+  //   localStorage.removeItem("isLoggedIn");
 
-    setIsLoggedIn(false);
-  };
+  //   setIsLoggedIn(false);
+  // };
+
+  const authCtx = useContext(AuthContext);
 
   return (
-    <AuthContext.Provider
-      value={{
-        isLoggedIn: isLoggedIn,
-        onLogout: logoutHandler,
-      }}
-    >
+    <React.Fragment>
       <MainHeader />
       <main>
-        {!isLoggedIn && <Login onLogin={loginHandler} />}
-        {isLoggedIn && <Home onLogout={logoutHandler} />}
+        {!authCtx.isLoggedIn && <Login />}
+        {authCtx.isLoggedIn && <Home />}
       </main>
-    </AuthContext.Provider>
+    </React.Fragment>
   );
 }
 
